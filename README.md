@@ -1,1 +1,1 @@
-# ImageConvert
+# Convert image into symbols
