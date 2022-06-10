@@ -67,19 +67,35 @@ namespace ImageConvert
                         R = G = B = (R + G + B) / 3.0f;
                         UInt32 newPixel = 0xFF000000 | ((UInt32)R << 16) | ((UInt32)G << 8) | ((UInt32)B);
 
-                        if (newPixel < 4281545523)
+                        if (newPixel < 4280054215)
                         {
                             writer.Write('#');
                         }
-                        else if (newPixel >= 4281545523 && newPixel < 4284900966)
+                        else if (newPixel >= 4280054215 && newPixel < 4281918350)
                         {
-                            writer.Write('0');
+                            writer.Write('@');
                         }
-                        else if (newPixel >= 4284900966 && newPixel < 4288256409)
+                        else if (newPixel >= 4281918350 && newPixel < 4283782485)
+                        {
+                            writer.Write('%');
+                        }
+                        else if (newPixel >= 4283782485 && newPixel < 4285646620)
+                        {
+                            writer.Write('=');
+                        }
+                        else if (newPixel >= 4285646620 && newPixel < 4287510755)
+                        {
+                            writer.Write('+');
+                        } 
+                        else if (newPixel >= 4287510755 && newPixel < 4289374890)
                         {
                             writer.Write('*');
                         }
-                        else if (newPixel >= 4288256409 && newPixel < 4291611852)
+                        else if (newPixel >= 4289374890 && newPixel < 4291239025)
+                        {
+                            writer.Write('-');
+                        }
+                        else if (newPixel >= 4291239025 && newPixel < 4293103160)
                         {
                             writer.Write('.');
                         }
