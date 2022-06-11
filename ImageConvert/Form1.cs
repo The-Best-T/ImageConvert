@@ -16,7 +16,7 @@ namespace ImageConvert
 
         private void inputButton_Click(object sender, EventArgs e)
         {
-            openFileDialog.Filter = "JPG images (*.JPG)|*.jpg";
+            openFileDialog.Filter = "Images (*.JPG)|*.jpg";
             openFileDialog.ShowDialog();
             selectedFileName = openFileDialog.FileNames[0];
         }
@@ -46,7 +46,46 @@ namespace ImageConvert
             return true;
         }
 
-        private void convertButton_Click(object sender, EventArgs e)
+        private char SetSymbol(UInt32 pixel)
+        {
+            char symbol = ' ';
+
+            if (pixel < 4280054215)
+            {
+                symbol = '#';
+            }
+            else if (pixel >= 4280054215 && pixel < 4281918350)
+            {
+                symbol = '@';
+            }
+            else if (pixel >= 4281918350 && pixel < 4283782485)
+            {
+                symbol = '%';
+            }
+            else if (pixel >= 4283782485 && pixel < 4285646620)
+            {
+                symbol = '=';
+            }
+            else if (pixel >= 4285646620 && pixel < 4287510755)
+            {
+                symbol = '+';
+            }
+            else if (pixel >= 4287510755 && pixel < 4289374890)
+            {
+                symbol = '*';
+            }
+            else if (pixel >= 4289374890 && pixel < 4291239025)
+            {
+                symbol = '-';
+            }
+            else if (pixel >= 4291239025 && pixel < 4293103160)
+            {
+                symbol = '.';
+            }
+            return symbol;
+        }
+
+        private async void convertButton_Click(object sender, EventArgs e)
         {
             if (!InvalidData())
                 return;
@@ -60,46 +99,13 @@ namespace ImageConvert
                 {
                     for (int i = 0; i < image.Width; i++)
                     {
-                        UInt32 newPixel = (UInt32)(image.GetPixel(i, j).ToArgb());
-                        
-                        if (newPixel < 4280054215)
-                        {
-                            writer.Write('#');
-                        }
-                        else if (newPixel >= 4280054215 && newPixel < 4281918350)
-                        {
-                            writer.Write('@');
-                        }
-                        else if (newPixel >= 4281918350 && newPixel < 4283782485)
-                        {
-                            writer.Write('%');
-                        }
-                        else if (newPixel >= 4283782485 && newPixel < 4285646620)
-                        {
-                            writer.Write('=');
-                        }
-                        else if (newPixel >= 4285646620 && newPixel < 4287510755)
-                        {
-                            writer.Write('+');
-                        } 
-                        else if (newPixel >= 4287510755 && newPixel < 4289374890)
-                        {
-                            writer.Write('*');
-                        }
-                        else if (newPixel >= 4289374890 && newPixel < 4291239025)
-                        {
-                            writer.Write('-');
-                        }
-                        else if (newPixel >= 4291239025 && newPixel < 4293103160)
-                        {
-                            writer.Write('.');
-                        }
-                        else
-                        {
-                            writer.Write(' ');
-                        }
+                        UInt32 pixel = (UInt32)(image.GetPixel(i, j).ToArgb());
+
+                        char symbol = SetSymbol(pixel);
+
+                        await writer.WriteAsync(symbol);
                     }
-                    writer.WriteLine();
+                    await writer.WriteLineAsync();
                 }
             }
         }
