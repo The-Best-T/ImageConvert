@@ -60,13 +60,8 @@ namespace ImageConvert
                 {
                     for (int i = 0; i < image.Width; i++)
                     {
-                        UInt32 pixel = (UInt32)(image.GetPixel(i, j).ToArgb());
-                        float R = (pixel & 0x00FF0000) >> 16;
-                        float G = (pixel & 0x0000FF00) >> 8;
-                        float B = pixel & 0x000000FF;
-                        R = G = B = (R + G + B) / 3.0f;
-                        UInt32 newPixel = 0xFF000000 | ((UInt32)R << 16) | ((UInt32)G << 8) | ((UInt32)B);
-
+                        UInt32 newPixel = (UInt32)(image.GetPixel(i, j).ToArgb());
+                        
                         if (newPixel < 4280054215)
                         {
                             writer.Write('#');
